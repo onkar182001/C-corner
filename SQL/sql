@@ -1,0 +1,88 @@
+CREATE TABLE Product (
+    Id INT PRIMARY KEY IDENTITY(1,1),
+    Name NVARCHAR(100),
+    State NVARCHAR(100),
+    District NVARCHAR(100),
+    Gender NVARCHAR(10),
+    ImagePath NVARCHAR(200),
+    Email NVARCHAR(100),
+    Mobile NVARCHAR(10)
+);
+
+
+
+ Insert Stored Procedure: InsertProduct
+CREATE PROCEDURE InsertProduct
+    @Name NVARCHAR(100),
+    @State NVARCHAR(100),
+    @District NVARCHAR(100),
+    @Gender NVARCHAR(10),
+    @ImagePath NVARCHAR(200),
+    @Email NVARCHAR(100),
+    @Mobile NVARCHAR(10)
+AS
+BEGIN
+    INSERT INTO Product (Name, State, District, Gender, ImagePath, Email, Mobile)
+    VALUES (@Name, @State, @District, @Gender, @ImagePath, @Email, @Mobile)
+END;
+
+
+ 3. Update Stored Procedure: UpdateProduct
+CREATE PROCEDURE UpdateProduct
+    @Id INT,
+    @Name NVARCHAR(100),
+    @State NVARCHAR(100),
+    @District NVARCHAR(100),
+    @Gender NVARCHAR(10),
+    @ImagePath NVARCHAR(200),
+    @Email NVARCHAR(100),
+    @Mobile NVARCHAR(10)
+AS
+BEGIN
+    UPDATE Product
+    SET 
+        Name = @Name,
+        State = @State,
+        District = @District,
+        Gender = @Gender,
+        ImagePath = @ImagePath,
+        Email = @Email,
+        Mobile = @Mobile
+    WHERE Id = @Id
+END;
+
+ 4. Delete Stored Procedure: DeleteProduct
+CREATE PROCEDURE DeleteProduct
+    @Id INT
+AS
+BEGIN
+    DELETE FROM Product WHERE Id = @Id
+END;
+
+5. Get All Products Procedure: GetAllProducts
+CREATE PROCEDURE GetAllProducts
+AS
+BEGIN
+    SELECT * FROM Product
+END;
+
+
+
+🔵 6. Get Product By Id: GetProductById
+
+CREATE PROCEDURE GetProductById
+    @Id INT
+AS
+BEGIN
+    SELECT * FROM Product WHERE Id = @Id
+END;
+
+
+
+🔵 7. Check Duplicate Mobile: CheckMobileExists
+CREATE PROCEDURE CheckMobileExists
+    @Mobile NVARCHAR(10)
+AS
+BEGIN
+    SELECT COUNT(*) FROM Product WHERE Mobile = @Mobile
+END;
