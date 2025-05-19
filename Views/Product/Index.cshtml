@@ -1,0 +1,36 @@
+@model IEnumerable<MahindraCrud.Models.Product>
+@{
+    ViewBag.Title = "Product List";
+}
+<h2>Product List</h2>
+
+<p>
+    @Html.ActionLink("Create New Product", "Create")
+</p>
+
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>State</th>
+        <th>District</th>
+        <th>Gender</th>
+        <th>Email</th>
+        <th>Mobile</th>
+        <th>Actions</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Name</td>
+            <td>@item.State</td>
+            <td>@item.District</td>
+            <td>@item.Gender</td>
+            <td>@item.Email</td>
+            <td>@item.Mobile</td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+</table>
