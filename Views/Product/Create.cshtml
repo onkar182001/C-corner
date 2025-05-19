@@ -1,0 +1,77 @@
+@model MahindraCrud.Models.Product
+@{
+    ViewBag.Title = "Create Product";
+}
+<h2>Create Product</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <div>
+        @Html.LabelFor(m => m.Name)
+        @Html.TextBoxFor(m => m.Name)
+    </div>
+    <div>
+        <div>
+            @Html.LabelFor(m => m.State)
+            @Html.DropDownListFor(m => m.State, new SelectList(new[] { "Maharashtra", "Gujarat" }), "Select State", new { @id = "state" })
+        </div>
+
+        <div>
+            @Html.LabelFor(m => m.District)
+            @Html.DropDownListFor(m => m.District, Enumerable.Empty<SelectListItem>(), "Select District", new { @id = "district" })
+        </div>
+
+    </div>
+
+    <div>
+        @Html.LabelFor(m => m.Gender)
+        @Html.DropDownListFor(m => m.Gender, new SelectList(new[] { "Male", "Female", "Other" }))
+    </div>
+    <div>
+        @Html.LabelFor(m => m.ImagePath)
+        @Html.TextBoxFor(m => m.ImagePath)
+    </div>
+    <div>
+        @Html.LabelFor(m => m.Date)
+        @Html.TextBoxFor(m => m.Date, "{0:yyyy-MM-dd}", new { type = "date" })
+    </div>
+    <div>
+        @Html.LabelFor(m => m.Email)
+        @Html.TextBoxFor(m => m.Email)
+    </div>
+
+    <div>
+        @Html.LabelFor(m => m.Mobile)
+        @Html.TextBoxFor(m => m.Mobile)
+        @Html.ValidationMessageFor(m => m.Mobile)
+    </div>
+
+    <div>
+        <input type="submit" value="Save" />
+    </div>
+}
+@section Scripts {
+    <script>
+        const districtOptions = {
+            "Maharashtra": ["Nashik", "Pune", "Mumbai"],
+            "Gujarat": ["Ahmedabad", "Surat", "Vadodara"]
+        };
+
+        document.getElementById("state").addEventListener("change", function () {
+            const selectedState = this.value;
+            const districtDropdown = document.getElementById("district");
+            districtDropdown.innerHTML = '<option>Select District</option>';
+
+            if (districtOptions[selectedState]) {
+                districtOptions[selectedState].forEach(d => {
+                    const option = document.createElement("option");
+                    option.text = d;
+                    option.value = d;
+                    districtDropdown.add(option);
+                });
+            }
+        });
+    </script>
+}
